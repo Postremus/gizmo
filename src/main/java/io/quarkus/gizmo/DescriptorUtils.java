@@ -43,8 +43,7 @@ public class DescriptorUtils {
         if (descriptor.startsWith("[")) {
             return descriptor;
         }
-        descriptor = descriptor.substring(1);
-        descriptor = descriptor.substring(0, descriptor.length() - 1);
+        descriptor = descriptor.substring(1, descriptor.length() - 1);
         return descriptor;
     }
 

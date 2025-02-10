@@ -28,7 +28,7 @@ public class FieldDescriptor {
     private final String type;
 
     private FieldDescriptor(String declaringClass, String name, String type) {
-        this.declaringClass = declaringClass.replace('.', '/');
+        this.declaringClass = declaringClass;
         this.name = name;
         this.type = type;
     }

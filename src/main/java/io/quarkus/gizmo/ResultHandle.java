@@ -60,9 +60,19 @@ public class ResultHandle {
         if (current.isEmpty()) {
             throw new RuntimeException("Invalid type " + type);
         }
+        int offset = 0;
+        char firstChar = current.charAt(offset);
         int length = current.length();
-        char firstChar = current.charAt(0);
-        if (length == 1) {
+        if (firstChar == '[') {
+            if (length > 1) {
+                offset++;
+                firstChar = current.charAt(offset);
+            } else {
+                throw new RuntimeException("Invalid type " + type);
+            }
+        }
+
+        if (length - offset == 1) {
             switch (firstChar) {
                 case 'Z':
                 case 'B':
@@ -76,14 +86,8 @@ public class ResultHandle {
                 default:
                     throw new RuntimeException("Invalid type " + type);
             }
-        } else {
-            if (firstChar == '[') {
-                verifyType(current.substring(1));
-            } else {
-                if (!(firstChar == 'L' && current.charAt(length - 1) == ';')) {
-                    throw new RuntimeException("Invalid type " + type);
-                }
-            }
+        } else if (firstChar != 'L' || current.charAt(length - 1) != ';') {
+            throw new RuntimeException("Invalid type " + type);
         }
 
     }
